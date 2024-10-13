@@ -36,3 +36,39 @@
 
 ## 3.编写初始Servlet实现直接代理静态网页
 
+编写的LoginServlet如下：
+
+```java
+package org.mobai.servlet;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.mobai.utils.ThymeleafUtil;
+import org.thymeleaf.context.Context;
+
+import java.io.IOException;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+  @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    ThymeleafUtil.process("login.html", new Context(), resp.getWriter());
+    }
+}
+```
+
+问题如下：
+
+![image-20241013103330912](images/image-20241013103330912.png)
+
+> Java类资源找不到
+
+即使单独添加lib到库依旧报错
+
+> 像这种初始即报错算是一种痛苦了
+>
+> 尝试了多种方式问题依旧
+
