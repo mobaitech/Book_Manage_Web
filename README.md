@@ -72,3 +72,92 @@ public class LoginServlet extends HttpServlet {
 >
 > 尝试了多种方式问题依旧
 
+## 4.移植项目依旧报错
+
+![image-20241013110611316](images/image-20241013110611316.png)
+
+> 依旧找不到类，发生同样的异常。
+
+项目结构如下：
+
+src
+
+```bash
+.
+├── java
+│   └── com
+│       └── book
+│           ├── dao															-- 数据库操作映射接口
+│           │   ├── BookMapper.java	
+│           │   ├── StudentMapper.java
+│           │   └── UserMapper.java
+│           ├── entity													-- 数据库实体模型
+│           │   ├── Book.java
+│           │   ├── Borrow.java
+│           │   ├── Student.java
+│           │   └── User.java
+│           ├── filter													-- 资源过滤器
+│           │   └── MainFilter.java
+│           ├── service												  -- 业务逻辑层和实现	
+│           │   ├── BookService.java
+│           │   ├── UserService.java         
+│           │   └── impl         
+│           │       ├── BookServiceImpl.java
+│           │       └── UserServiceImpl.java
+│           ├── servlet													-- servlet功能，这里调用dao中的方法
+│           │   ├── IndexServlet.java
+│           │   ├── LoginServlet.java
+│           │   ├── auth
+│           │   │   ├── LoginServlet.java
+│           │   │   └── LogoutServlet.java
+│           │   ├── manage
+│           │   │   ├── AddBookServlet.java
+│           │   │   ├── AddBorrowServlet.java
+│           │   │   ├── DeleteBookServlet.java
+│           │   │   └── ReturnServlet.java
+│           │   └── pages
+│           │       ├── BookServlet.java
+│           │       ├── IndexServlet.java
+│           │       └── StudentServlet.java
+│           └── utils                						-- 工件
+│               ├── MybatisUtil.java
+│               └── ThymeleafUtil.java
+└── resources
+    ├── add-book.html
+    ├── add-borrow.html
+    ├── books.html
+    ├── header.html
+    ├── index.html
+    ├── login.html
+    ├── mybatis-config.xml
+    └── students.html
+```
+
+web下项目结构如下：
+
+```bash
+.
+├── WEB-INF
+├── lib
+└── static
+    ├── css
+    ├── font
+    ├── image
+    ├── js
+    └── picture
+```
+
+> 教学视频还是可以看一下，不然还是不太理解Service这个包的作用
+
+项目架构依旧跑不起来，暂且搁置了。
+
+解释下java中final的基本用法：
+
+- **`final` 类**：不能被继承。
+- **`final` 方法**：不能被重写。
+- **`final` 变量**：只能被赋值一次。
+- **`final` 引用类型**：引用本身不能改变，但引用的对象内容可以改变。
+
+关于第四点比如创建了一个List<Interger>ml;
+
+那么不管在什么方法中ml的地址不能改变，即引用对象不发生改变，但是其内部是可以使用add函数添加内容的。
