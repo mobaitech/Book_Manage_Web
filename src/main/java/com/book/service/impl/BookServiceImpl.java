@@ -36,6 +36,7 @@ public class BookServiceImpl implements BookService {
     public List<Book> getActiveBookList() {
         Set<Integer> set = new HashSet<>();
         this.getBorrowList().forEach(borrow -> set.add(borrow.getBook_id()));
+        // 先获取哪些书的id在borrow中出现了
         try (SqlSession sqlSession = MybatisUtil.getSession()){
             BookMapper mapper = sqlSession.getMapper(BookMapper.class);
             return mapper.getBookList()
@@ -43,6 +44,9 @@ public class BookServiceImpl implements BookService {
                     .filter(book -> !set.contains(book.getBid()))
                     .collect(Collectors.toList());
         }
+        // 然后这里是获取哪些书的id在borrow中没有出现，得到的结果就是未被借出的书，注意这种流式操作的写法
+        // 这里的stream()方法是将List转换为Stream，filter()方法是过滤，collect()方法是将Stream转换为List
+        // strem -> filter -> collect 这个流程是很常见的，可以记住
     }
 
     @Override

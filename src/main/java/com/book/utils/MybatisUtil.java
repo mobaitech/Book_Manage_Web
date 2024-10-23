@@ -23,3 +23,4 @@ public class MybatisUtil {
         return factory.openSession(true);
     }
 }
+// 这里和之前直接使用的MybatisUtil是一样的（BookManage纯后端系统）
